@@ -2,17 +2,19 @@ const holes = document.querySelectorAll(".hole");
 const moles = document.querySelectorAll(".mole");
 const startButton = document.querySelector("#start");
 const startText = document.querySelector("#startUp");
-// TODO: Change Mouse onhover
+const gameOverText = document.querySelector("#gameOverText");
+const selecDifficulty = document.querySelector("#selectDifficulty");
+const difficultyForm = document.querySelector("#radio-form");
 const score = document.querySelector("#score");
 const timerDisplay = document.querySelector("#timer");
+const timerDisplayText = document.querySelector("#timerDisplayText");
 const song = document.querySelector("#background");
 const hit = document.querySelector("#hit");
-
+let difficulty = "easy";
 let time = 0;
 let timer;
 let lastHole = 0;
 let points = 0;
-let difficulty = "easy";
 
 /**
  * Generates a random integer within a range.
@@ -28,9 +30,9 @@ function randomInteger(min, max) {
 }
 
 /**
- * Sets the time delay given a difficulty parameter.
+ * Sets the time delay given a difficulty query.
  *
- * The function takes a `difficulty` parameter that can have three values: `easy`
+ * The function takes a `difficulty` value that can have three values: `easy`
  * `normal` or `hard`. If difficulty is "easy" then the function returns a time delay
  * of 1500 milliseconds (or 1.5 seconds). If the difficulty is set to "normal" it should
  * return 1000. If difficulty is set to "hard" it should return a randomInteger between
@@ -42,17 +44,17 @@ function randomInteger(min, max) {
  * setDelay("hard") //> returns 856 (returns a random number between 600 and 1200).
  *
  */
-function setDelay(difficulty) {
-  // TODO: Write your code here.
-  let timeDelay = 0;
-  if (difficulty === "easy") {
-    timeDelay = 1500;
-  }
 
-  if (difficulty === "normal") {
+function setDelay() {
+  difficulty = document.querySelector('input[name="difficulty"]:checked');
+  let timeDelay = 0;
+  let difficultyText = difficulty.value;
+
+  if (difficultyText === "easy") {
+    timeDelay = 1500;
+  } else if (difficultyText === "normal") {
     timeDelay = 1000;
-  } 
-  if(difficulty === "hard"){
+  } else if (difficultyText === "hard") {
     timeDelay = randomInteger(600, 1200);
   }
   return timeDelay;
@@ -67,13 +69,8 @@ function setDelay(difficulty) {
  * 3. if hole === lastHole then call chooseHole(holes) again.
  * 4. if hole is not the same as the lastHole then keep track of
  * it (lastHole = hole) and return the hole
- *
- * Example:
- * const holes = document.querySelectorAll('.hole');
- * chooseHole(holes) //> returns one of the 9 holes that you defined
  */
 function chooseHole(holes) {
-  // TODO: Write your code here.
   let randomNumber = randomInteger(0, 8);
   const hole = holes[randomNumber];
   if (hole === lastHole) {
@@ -96,20 +93,12 @@ function chooseHole(holes) {
  * return the timeoutId if the game continues or the string "game stopped"
  * if the game is over.
  *
- *  // if time > 0:
- *  //   timeoutId = showUp()
- *  //   return timeoutId
- *  // else
- *  //   gameStopped = stopGame()
- *  //   return gameStopped
- *
  */
 function gameOver() {
-  // TODO: Write your code here
   if (time > 0) {
-    return showUp();
+    showUp();
   } else {
-    return stopGame();
+    stopGame();
   }
 }
 
@@ -123,9 +112,9 @@ function gameOver() {
  *
  */
 function showUp() {
-  let delay = setDelay(difficulty); // TODO: Update so that it uses setDelay()
-  const hole = chooseHole(holes); // TODO: Update so that it use chooseHole()
-  return showAndHide(hole, delay);
+  let delay = setDelay(difficulty);
+  const hole = chooseHole(holes);
+  showAndHide(hole, delay);
 }
 
 /**
@@ -137,13 +126,11 @@ function showUp() {
  *
  */
 function showAndHide(hole, delay) {
-  // TODO: call the toggleVisibility function so that it adds the 'show' class.
   toggleVisibility(hole);
   const timeoutID = setTimeout(() => {
-    // TODO: call the toggleVisibility function so that it removes the 'show' class when the timer times out.
     toggleVisibility(hole);
     gameOver();
-  }, delay); // TODO: change the setTimeout delay to the one provided as a parameter
+  }, delay);
   return timeoutID;
 }
 
@@ -154,7 +141,6 @@ function showAndHide(hole, delay) {
  *
  */
 function toggleVisibility(hole) {
-  // TODO: add hole.classList.toggle so that it adds or removes the 'show' class.
   hole.classList.toggle("show");
   return hole;
 }
@@ -164,16 +150,12 @@ function toggleVisibility(hole) {
  * This function increments the points global variable and updates the scoreboard.
  * Use the `points` global variable that is already defined and increment it by 1.
  * After the `points` variable is incremented proceed by updating the scoreboard
- * that you defined in the `index.html` file. To update the scoreboard you can use
- * `score.textContent = points;`. Use the comments in the function as a guide
- * for your implementation:
+ * that you defined in the `index.html` file.
  *
  */
 function updateScore() {
-  // TODO: Write your code here
   points++;
   score.textContent = points;
-  return points;
 }
 
 /**
@@ -207,25 +189,53 @@ function updateTimer() {
 /**
  *
  * Starts the timer using setInterval. For each 1000ms (1 second)
- * the updateTimer function get called. This function is already implemented
+ * the updateTimer function get called.
  *
  */
 function startTimer() {
-  // TODO: Write your code here
   timer = setInterval(updateTimer, 1000);
 
   return timer;
 }
 
-function hideStartElements(){
-startButton.classList.add('hide');
-startText.classList.add('hide');
+/**
+ * This function hides the elements found at the beginning of the game on the Start Screen
+ */
+function hideStartElements() {
+  startButton.classList.add("hide");
+  startText.classList.add("hide");
+  difficultyForm.classList.add("hide");
+  selecDifficulty.classList.add("hide");
 }
 
-function unhideStartElements(){
-  startButton.classList.remove('hide');
-  startText.classList.remove('hide');
+/**
+ * This function unhides the elements found at the beginning of the game on the Start Screen
+ */
+function unhideStartElements() {
+  startButton.classList.remove("hide");
+  startText.classList.remove("hide");
+  difficultyForm.classList.remove("hide");
+  selecDifficulty.classList.remove("hide");
+}
 
+/**
+ * This function hides the Game Over element on the beginning of the game on the Start Screen
+ */
+
+function hideGameOver() {
+  gameOverText.classList.add("hide");
+  timerDisplay.classList.remove("hide");
+  timerDisplayText.classList.remove("hide");
+}
+
+/**
+ * This function unhides the Game Over element at the end of the game.
+ */
+function unhideGameOver() {
+  gameOverText.classList.remove("hide");
+  gameOverText.classList.add("gameOverText");
+  timerDisplay.classList.add("hide");
+  timerDisplayText.classList.add("hide");
 }
 
 /**
@@ -237,11 +247,9 @@ function unhideStartElements(){
  *
  */
 function whack(event) {
-  // TODO: Write your code here.
-
- let updatePoints = updateScore();
- hit.play();
-  return updatePoints;
+  updateScore();
+  hit.currentTime = 1;
+  hit.play();
 }
 
 /**
@@ -250,7 +258,6 @@ function whack(event) {
  * for an example on how to set event listeners using a for loop.
  */
 function setEventListeners() {
-  // TODO: Write your code here
   moles.forEach((mole) => {
     mole.addEventListener("click", whack);
   });
@@ -279,6 +286,7 @@ function stopGame() {
   background.pause();
   background.currentTime = 0;
   clearInterval(timer);
+  unhideGameOver();
   unhideStartElements();
   return "game stopped";
 }
@@ -291,9 +299,10 @@ function stopGame() {
  */
 function startGame() {
   clearScore();
+  hideGameOver();
   hideStartElements();
   background.play();
-  setDuration(26);
+  setDuration(35);
   setEventListeners();
   showUp();
   startTimer();

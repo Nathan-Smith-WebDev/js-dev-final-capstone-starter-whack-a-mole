@@ -1,12 +1,13 @@
 html {
   /*background: url('./assets/background.png') no-repeat center center fixed;*/
-  background: url('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/background.png?raw=true') no-repeat center center fixed;
+  background: url("https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/background.png?raw=true")
+    no-repeat center center fixed;
   box-sizing: border-box;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  z-index:0;
+  z-index: 0;
   overflow: hidden;
 }
 
@@ -25,23 +26,35 @@ h2 {
   color: white;
   -webkit-text-stroke: 1px black;
 }
-
-#start {
-    text-align: center;
-    font-size: 30px;
+p {
+  text-align: center;
+  font-size: 30px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: white;
+  -webkit-text-stroke: 1px black;
 }
 
-#timer{
-    color: white;
+#start {
+  text-align: center;
+  font-size: 30px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  background-color: rgb(108, 107, 107);
+  color: black;
+  -webkit-text-stroke: 1px white;
+  border-radius: 10px;
+}
+
+#timer {
+  color: white;
 }
 
 .grid {
   width: 600px;
-  height: 400px;
+  height: 440px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  cursor: url('../assets/hammer.png'), auto;
+  cursor: url("../assets/mallet.png"), crosshair;
 }
 
 .hole {
@@ -53,52 +66,75 @@ h2 {
 .hole:after {
   display: block;
   background: url("../assets/hole.png") bottom center no-repeat;
-  /*background: url("https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/hole.png?raw=true") bottom center no-repeat;*/
-  background-size:contain;
-  content:'';
+  background-size: contain;
+  content: "";
   width: 100%;
   height: 100%;
   position: absolute;
   bottom: -40%;
   z-index: 2;
-  pointer-events:none;
+  pointer-events: none;
 }
 
 .mole {
-  background:url('../assets/mole.png') bottom center no-repeat;
-  /*background:url('https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/mole.png?raw=true') bottom center no-repeat;*/
+  background: url("../assets/mole.png") bottom center no-repeat;
   background-size: 40%;
   position: absolute;
   top: 100%;
   width: 100%;
   height: 100%;
-  /*transition: transform 0.5s;*/
+  transition: transform 0.5s;
   transition: all 1s;
-  pointer-events:auto;
-  /* cursor: url('../assets/HammerSmash.png'), auto; */
+  pointer-events: auto;
 }
 
 .hole.show .mole {
   top: 0;
-  /*transform: scale(1.1);*/
+  transform: scale(1.1);
 }
 
 audio {
   display: none;
 }
 
-#hammer{
-  cursor: url('../assets/hammer'), auto;
+#hammer {
+  cursor: url("../assets/hammer"), auto;
 }
-#hammerSmash{
-  cursor: url('../assets/hammerSmash'), auto;
+#hammerSmash {
+  cursor: url("../assets/hammerSmash"), auto;
 }
-.hide{
+.hide {
   display: none;
 }
+.radio-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* Todo add media query */
-@media all and (max-width: 1080px){
+.radio-container label {
+  display: flex;
+  align-items: center;
+}
+
+.radio-container input[type="radio"] {
+  margin-right: 5px;
+}
+
+.gameOverText {
+  text-align: center;
+  font-size: 40px;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  color: red;
+  -webkit-text-stroke: 1px black;
+}
+.radio-text {
+  font-size: 20px;
+
+  color: white;
+}
+
+@media all and (max-width: 1080px) {
   h1 {
     text-align: center;
     font-size: 50px;
@@ -106,29 +142,29 @@ audio {
     color: white;
     -webkit-text-stroke: 2px black;
   }
-  
+
   h2 {
     text-align: center;
     font-size: 30px;
     color: white;
     -webkit-text-stroke: 1px black;
   }
-  
+
   #start {
-      text-align: center;
-      font-size: 20px;
+    text-align: center;
+    font-size: 20px;
   }
-  
-  #timer{
-      color: white;
+
+  #timer {
+    color: white;
   }
-  
+
   .grid {
     width: 500px;
     height: 300px;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
-    cursor: url('./assets/mallet.png'), pointer;
+    cursor: url("../assets/mallet.png"), pointer;
   }
 }

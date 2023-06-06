@@ -4,34 +4,76 @@
   </head>
   <body>
 
-    <h1 id="title">Whack a Mole</h1>
-    
+    <h1 id="title">
+      Whack a Mole
+    </h1>
+    <div>
       <div class="sound">
-      <audio id="background" controls>
-        <source src="assets/molesong.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
+        <audio id="background" controls>
+          <source src="assets/molesong2.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
 
-      <audio id="hit" controls>
+        <audio id="hit" controls>
         <source src="assets/hit.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
-      </audio>
+        </audio>
+      </div>
+      <p id="selectDifficulty">Select a Difficulty</p>
+      <form id="radio-form">
+        <div class="radio-container" id="radio-container">
+          <label     class="radio-text">
+            <input 
+        
+            type="radio" 
+            id="easy" 
+            name="difficulty" 
+            value="easy">
+            Easy
+          </label>
+          <br>
+          <label     class="radio-text">
+            <input 
+           
+            type="radio" 
+            id="normal" 
+            name="difficulty" 
+            value="normal" checked>
+            Normal
+          </label>
+          <br>
+          <label  class="radio-text">
+            <input 
+           
+            type="radio" 
+            id="hard" 
+            name="difficulty" 
+            value="hard">
+            Hard
+          </label>
+        </div>
+      </form>
       <div>
         <h2 id="startUp">Click <div class="start" onclick="startGame()">
           <button id="start">Start</button>
-        </div> to play!</h2>
+        </br> to play!
+        </h2>
       </div>
-    </div>
+ 
       <div>
         <h2>score: <span id="score">0</span></h2>
       </div>
       <div>
-          <h2><span id="timer">0</span> seconds left.</h2>
+          <h2 id="timerDisplayText"><span id="timer">0</span> seconds left.</h2>
       </div>
-    </div>
+      <div >
+        <h3 class="hide" id="gameOverText">GAME OVER!</h3>
+      </div>
+    </div>  
     <div id="#hammer" class="grid">
       <div id="hole0" class="hole">
-        <div id="mole0" class="mole">
+        <div
+         id="mole0" class="mole">
 
         </div>
       </div>
@@ -76,7 +118,9 @@
 
         </div>
       </div>
+     
     </div>
+  
   
     <script src="./src/index.js"></script>
   </body>
