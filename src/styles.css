@@ -1,7 +1,7 @@
 html {
-  /*background: url('./assets/background.png') no-repeat center center fixed;*/
-  background: url("https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/background.png?raw=true")
-    no-repeat center center fixed;
+  background: url('../assets/grassBackground.png') no-repeat center center fixed;
+  /* background: url("https://github.com/Thinkful-Ed/js-dev-final-capstone-starter/blob/main/assets/background.png?raw=true")
+    no-repeat center center fixed; */
   box-sizing: border-box;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -13,7 +13,7 @@ html {
 
 h1 {
   text-align: center;
-  font-size: 60px;
+  font-size: 50px;
   font-family: "Comic Sans MS", "Comic Sans", cursive;
   color: white;
   -webkit-text-stroke: 2px black;
@@ -55,7 +55,7 @@ p {
 
 .grid {
   width: 600px;
-  height: 440px;
+  height: 640px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
@@ -75,7 +75,7 @@ p {
   background-size: contain;
   content: "";
   width: 100%;
-  height: 100%;
+  height: 90%;
   position: absolute;
   bottom: -40%;
   z-index: 2;
@@ -83,32 +83,26 @@ p {
 }
 
 .mole {
-  background: url("../assets/mole.png") bottom center no-repeat;
-  background-size: 40%;
+  background: url("../assets/MoleMeditate.png") bottom center no-repeat;
+  background-size: 60%;
   position: absolute;
   top: 100%;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s;
+  /* transition: transform 0.5s; */
   transition: all 1s;
   pointer-events: auto;
 }
 
 .hole.show .mole {
   top: 0;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 }
 
 audio {
   display: none;
 }
 
-#hammer {
-  cursor: url("../assets/hammer"), auto;
-}
-#hammerSmash {
-  cursor: url("../assets/hammerSmash"), auto;
-}
 .hide {
   display: none;
 }
@@ -140,10 +134,10 @@ audio {
   color: white;
 }
 
-@media all and (max-width: 760px) {
+@media all and (max-width: 600px) {
   h1 {
     text-align: center;
-    font-size: 80px;
+    font-size: 60px;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: white;
     -webkit-text-stroke: 2px black;
@@ -152,7 +146,7 @@ audio {
 
   h2 {
     text-align: center;
-    font-size: 40px;
+    font-size: 30px;
     color: white;
     -webkit-text-stroke: 1px black;
     padding-bottom: 5px;
@@ -169,7 +163,7 @@ audio {
 
   .grid {
     width: 500px;
-    max-height: 500px;
+    height: 500px;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;

@@ -10,11 +10,13 @@ const timerDisplay = document.querySelector("#timer");
 const timerDisplayText = document.querySelector("#timerDisplayText");
 const song = document.querySelector("#background");
 const hit = document.querySelector("#hit");
-let difficulty = "easy";
-let time = 0;
+let difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+let time = 35;
 let timer;
-let lastHole = 0;
+let lastHole = null;
 let points = 0;
+let isMole = false;
+
 
 /**
  * Generates a random integer within a range.
@@ -45,19 +47,15 @@ function randomInteger(min, max) {
  *
  */
 
-function setDelay() {
-  difficulty = document.querySelector('input[name="difficulty"]:checked');
-  let timeDelay = 0;
-  let difficultyText = difficulty.value;
-
-  if (difficultyText === "easy") {
-    timeDelay = 1500;
-  } else if (difficultyText === "normal") {
-    timeDelay = 1000;
-  } else if (difficultyText === "hard") {
-    timeDelay = randomInteger(600, 1200);
+function setDelay(difficulty) {
+  
+  if (difficulty === "easy") {
+    return 1500;
+  } else if (difficulty === "normal") {
+    return 1000;
+  } else if (difficulty === "hard") {
+    return randomInteger(600, 1200);
   }
-  return timeDelay;
 }
 
 /**
@@ -73,6 +71,7 @@ function setDelay() {
 function chooseHole(holes) {
   let randomNumber = randomInteger(0, 8);
   const hole = holes[randomNumber];
+
   if (hole === lastHole) {
     return chooseHole(holes);
   } else {
@@ -94,13 +93,19 @@ function chooseHole(holes) {
  * if the game is over.
  *
  */
+
+
 function gameOver() {
   if (time > 0) {
-    showUp();
+    let timeoutId = showUp();
+    return timeoutId;
   } else {
-    stopGame();
+    let gameStopped = stopGame();
+    return gameStopped;
   }
 }
+
+
 
 /**
  *
@@ -111,11 +116,18 @@ function gameOver() {
  * to call `showAndHide(hole, delay)`.
  *
  */
+
 function showUp() {
+  
   let delay = setDelay(difficulty);
   const hole = chooseHole(holes);
-  showAndHide(hole, delay);
+
+  return showAndHide(hole, delay);
+
 }
+
+
+
 
 /**
  *
@@ -126,12 +138,17 @@ function showUp() {
  *
  */
 function showAndHide(hole, delay) {
-  toggleVisibility(hole);
-  const timeoutID = setTimeout(() => {
+
     toggleVisibility(hole);
-    gameOver();
+    const timeoutID = setTimeout(() => {
+      
+      toggleVisibility(hole);
+      gameOver(); 
+    
   }, delay);
+
   return timeoutID;
+ 
 }
 
 /**
@@ -140,7 +157,7 @@ function showAndHide(hole, delay) {
  * a given hole. It returns the hole.
  *
  */
-function toggleVisibility(hole) {
+function toggleVisibility(hole) {  
   hole.classList.toggle("show");
   return hole;
 }
@@ -154,8 +171,10 @@ function toggleVisibility(hole) {
  *
  */
 function updateScore() {
-  points++;
+  points += 1;
+
   score.textContent = points;
+  return points;
 }
 
 /**
@@ -166,7 +185,6 @@ function updateScore() {
  *
  */
 function clearScore() {
-  // TODO: Write your code here
   points = 0;
   score.textContent = points;
   return points;
@@ -178,7 +196,6 @@ function clearScore() {
  *
  */
 function updateTimer() {
-  // TODO: Write your code here.
   if (time > 0) {
     time--;
     timerDisplay.textContent = time;
@@ -244,12 +261,14 @@ function unhideGameOver() {
  * clicks on a mole. The setEventListeners should use this event
  * handler (e.g. mole.addEventListener('click', whack)) for each of
  * the moles.
- *
+ * hit makes the hit sound and will cut off after one second. 
  */
 function whack(event) {
-  updateScore();
+  let score = updateScore();
   hit.currentTime = 1;
+  this.parentNode.classList.remove("show");
   hit.play();
+  return score; 
 }
 
 /**
@@ -283,8 +302,8 @@ function setDuration(duration) {
  *
  */
 function stopGame() {
-  background.pause();
-  background.currentTime = 0;
+  song.pause();
+  song.currentTime = 0;
   clearInterval(timer);
   unhideGameOver();
   unhideStartElements();
@@ -301,10 +320,10 @@ function startGame() {
   clearScore();
   hideGameOver();
   hideStartElements();
-  background.play();
+  song.play();
   setDuration(35);
+  gameOver();
   setEventListeners();
-  showUp();
   startTimer();
   updateTimer();
   return "game started";
