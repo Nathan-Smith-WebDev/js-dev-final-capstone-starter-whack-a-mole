@@ -10,8 +10,9 @@ const timerDisplay = document.querySelector("#timer");
 const timerDisplayText = document.querySelector("#timerDisplayText");
 const song = document.querySelector("#background");
 const hit = document.querySelector("#hit");
-let difficulty = document.querySelector('input[name="difficulty"]:checked').value;
-let time = 35;
+let difficulty = "hard";
+//document.querySelector('input[name="difficulty"]:checked').value;
+let time = 10;
 let timer;
 let lastHole = null;
 let points = 0;
@@ -69,7 +70,7 @@ function setDelay(difficulty) {
  * it (lastHole = hole) and return the hole
  */
 function chooseHole(holes) {
-  let randomNumber = randomInteger(0, 8);
+  const randomNumber = randomInteger(0, 8);
   const hole = holes[randomNumber];
 
   if (hole === lastHole) {
@@ -264,11 +265,11 @@ function unhideGameOver() {
  * hit makes the hit sound and will cut off after one second. 
  */
 function whack(event) {
-  let score = updateScore();
+   points = updateScore();
   hit.currentTime = 1;
-  this.parentNode.classList.remove("show");
+ 
   hit.play();
-  return score; 
+  return points; 
 }
 
 /**
@@ -317,13 +318,13 @@ function stopGame() {
  *
  */
 function startGame() {
+  setEventListeners();
   clearScore();
   hideGameOver();
   hideStartElements();
   song.play();
-  setDuration(35);
-  gameOver();
-  setEventListeners();
+  setDuration(time);
+  showUp();
   startTimer();
   updateTimer();
   return "game started";

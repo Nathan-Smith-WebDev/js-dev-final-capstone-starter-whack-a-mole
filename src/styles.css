@@ -133,7 +133,7 @@ audio {
 
   color: white;
 }
-
+/* 
 @media all and (max-width: 600px) {
   h1 {
     text-align: center;
@@ -169,4 +169,4 @@ audio {
     margin: 0 auto;
     cursor: url("../assets/mallet.png"), pointer;
   }
-}
+} */
